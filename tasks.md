@@ -44,7 +44,7 @@ npx tsc --init
 
 - Deploy and verify at live URL
 
-### 5. Deploy backend to Railway
+### ✅ 5. Deploy backend to Railway
 
 - Push `backend/` to GitHub
 - Create Railway project and link repo
