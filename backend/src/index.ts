@@ -1,26 +1,10 @@
 import fastify from "fastify";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
-import rateLimit from "@fastify/rate-limit";
 import { appRouter } from "./router";
 import "dotenv/config";
 
 const server = fastify({
   logger: true,
-});
-
-// Register rate limiting
-server.register(rateLimit, {
-  max: 5, // 5 requests for testing
-  timeWindow: 60000, // 1 minute in milliseconds
-  errorResponseBuilder: function (request, context) {
-    return {
-      code: 429,
-      error: "Too Many Requests",
-      message: `Rate limit exceeded, retry in ${context.ttl} seconds. Max ${context.max} requests per minute.`,
-      date: Date.now(),
-      expiresIn: context.ttl,
-    };
-  },
 });
 
 // Register tRPC plugin
