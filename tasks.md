@@ -6,18 +6,18 @@ This document defines a granular, testable task plan for building the MVP of Yie
 
 ## Phase 1: Base Setup
 
-### 1. Create a new GitHub repository
+### ✅ 1. Create a new GitHub repository
 
-- ✅ Create a public/private GitHub repo named `yield-hunt`
-- ✅ Initialize with README, `.gitignore`, and MIT license
+- Create a public/private GitHub repo named `yield-hunt`
+- Initialize with README, `.gitignore`, and MIT license
 
-### 2. Scaffold the Next.js frontend with Tailwind and Shadcn UI
+### ✅ 2. Scaffold the Next.js frontend with Tailwind and Shadcn UI
 
 ```bash
 npx create-next-app@latest frontend
 cd frontend
 npx shadcn-ui@latest init
-npm run dev
+pnpm run dev
 ```
 
 - Select App Router, TypeScript, Tailwind when prompted
@@ -27,9 +27,9 @@ npm run dev
 
 ```bash
 mkdir backend && cd backend
-npm init -y
-npm install fastify @trpc/server zod dotenv
-npm install -D typescript ts-node @types/node
+pnpm init -y
+pnpm install fastify @trpc/server zod dotenv
+pnpm install -D typescript ts-node @types/node
 npx tsc --init
 ```
 
@@ -103,7 +103,7 @@ create table videos (
 ### 8. Connect Supabase to backend
 
 ```bash
-npm install @supabase/supabase-js
+pnpm install @supabase/supabase-js
 ```
 
 - Create `lib/supabase.ts` with Supabase client using `SUPABASE_SERVICE_ROLE_KEY`
@@ -122,7 +122,7 @@ export const CHANNELS = ["UC1234567890abcdef", "UCabcdef1234567890"];
 ### 10. Implement `lib/youtube.ts`
 
 ```bash
-npm install googleapis
+pnpm install googleapis
 ```
 
 - Function: `getLatestVideosFromChannel(channelId)` using YouTube Data API
@@ -130,7 +130,7 @@ npm install googleapis
 ### 11. Add transcript fetcher
 
 ```bash
-npm install youtube-transcript
+pnpm install youtube-transcript
 ```
 
 - Function: `getTranscript(videoId)`
@@ -138,7 +138,7 @@ npm install youtube-transcript
 ### 12. Add OpenAI summarizer
 
 ```bash
-npm install openai
+pnpm install openai
 ```
 
 - Function: `summarizeTranscript(transcript)`
@@ -147,7 +147,7 @@ npm install openai
 ### 13. Add Telegram notifier
 
 ```bash
-npm install node-telegram-bot-api
+pnpm install node-telegram-bot-api
 ```
 
 - Function: `notifyTelegram(text)`
@@ -218,7 +218,7 @@ npm install node-telegram-bot-api
 ### 21. Configure Tailwind Typography
 
 ```bash
-npm install @tailwindcss/typography
+pnpm install @tailwindcss/typography
 ```
 
 - Add to `tailwind.config.ts`
@@ -232,7 +232,7 @@ plugins: [require('@tailwindcss/typography')],
 ### 22. Add environment validation
 
 ```bash
-npm install zod
+pnpm install zod
 ```
 
 - Create `lib/env.ts` and validate `process.env` with `zod`
@@ -240,7 +240,7 @@ npm install zod
 ### 23. Add logging and monitoring
 
 ```bash
-npm install pino
+pnpm install pino
 ```
 
 - Use `pino` in backend + worker for logs
