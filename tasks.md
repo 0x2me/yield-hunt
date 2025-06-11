@@ -23,7 +23,7 @@ pnpm run dev
 - Select App Router, TypeScript, Tailwind when prompted
 - Confirm homepage loads at `http://localhost:3000`
 
-### 3. Scaffold the Fastify + tRPC backend API
+### ✅ 3. Scaffold the Fastify + tRPC backend API
 
 ```bash
 mkdir backend && cd backend
@@ -36,15 +36,11 @@ npx tsc --init
 - Create `index.ts` with Fastify server and a test `hello` tRPC route
 - Test locally: `npx ts-node index.ts`
 
-### 4. Deploy frontend to Vercel
+### ✅ 4. Deploy frontend to Vercel
 
 - Push `frontend/` to GitHub
 - Connect repo to Vercel
 - Set environment variables:
-
-  - `NEXT_PUBLIC_SUPABASE_URL`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-  - `NEXT_PUBLIC_API_BASE_URL`
 
 - Deploy and verify at live URL
 
