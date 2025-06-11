@@ -18,6 +18,7 @@ alwaysApply: true
   - Make code precise, modular, testable
   - Don’t break existing functionality
   - If I need to do anything (e.g. Supabase/AWS config), tell me clearly "
+  - Use pnpm over npm
   
   Naming Conventions
   - Use lowercase with dashes for directories (e.g., components/auth-wizard).
