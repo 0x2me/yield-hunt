@@ -10,13 +10,13 @@ const server = fastify({
 
 // Register rate limiting
 server.register(rateLimit, {
-  max: 100, // 100 requests
-  timeWindow: "1 minute", // per minute
+  max: 5, // 5 requests for testing
+  timeWindow: 60000, // 1 minute in milliseconds
   errorResponseBuilder: function (request, context) {
     return {
       code: 429,
       error: "Too Many Requests",
-      message: `Rate limit exceeded, retry in ${context.ttl} seconds. Max ${context.max} requests per ${context.ttl}.`,
+      message: `Rate limit exceeded, retry in ${context.ttl} seconds. Max ${context.max} requests per minute.`,
       date: Date.now(),
       expiresIn: context.ttl,
     };
