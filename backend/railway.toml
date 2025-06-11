@@ -1,0 +1,11 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pnpm run build"
+
+[deploy]
+startCommand = "pnpm run start"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[networking]
+serviceDomain = "yield-hunt-api"
