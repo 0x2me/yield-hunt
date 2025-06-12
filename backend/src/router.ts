@@ -1,5 +1,6 @@
 import { initTRPC } from '@trpc/server'
 import { z } from 'zod'
+import { supabase } from './lib/supabase'
 
 const t = initTRPC.create()
 
@@ -12,29 +13,50 @@ export const appRouter = t.router({
   // Video-related procedures
   videos: t.router({
     // List all videos
-    list: t.procedure.query(() => {
-      // TODO: Integrate with Supabase to fetch videos
-      return { videos: [] }
+    list: t.procedure.query(async () => {
+      const { data: videos, error } = await supabase
+        .from('videos')
+        .select('*')
+        .order('created_at', { ascending: false })
+      
+      if (error) throw error
+      return { videos: videos || [] }
     }),
 
     // Get single video by ID
     get: t.procedure
       .input(z.object({ id: z.string() }))
-      .query(({ input }) => {
-        // TODO: Fetch single video from Supabase
-        return { video: null, id: input.id }
+      .query(async ({ input }) => {
+        const { data: video, error } = await supabase
+          .from('videos')
+          .select('*')
+          .eq('id', input.id)
+          .single()
+        
+        if (error) throw error
+        return { video }
       }),
 
     // Create new video entry
     create: t.procedure
       .input(z.object({ 
         youtubeId: z.string(),
-        title: z.string().optional(),
-        channelId: z.string().optional()
+        title: z.string(),
+        publishedAt: z.string(),
       }))
-      .mutation(({ input }) => {
-        // TODO: Add video to processing queue
-        return { success: true, youtubeId: input.youtubeId }
+      .mutation(async ({ input }) => {
+        const { data: video, error } = await supabase
+          .from('videos')
+          .insert({
+            youtube_id: input.youtubeId,
+            title: input.title,
+            published_at: input.publishedAt,
+          })
+          .select()
+          .single()
+        
+        if (error) throw error
+        return { success: true, video }
       }),
 
     // Update video (mainly for adding transcript/summary)
@@ -44,9 +66,20 @@ export const appRouter = t.router({
         transcript: z.string().optional(),
         summary: z.string().optional()
       }))
-      .mutation(({ input }) => {
-        // TODO: Update video in Supabase
-        return { success: true, id: input.id }
+      .mutation(async ({ input }) => {
+        const updateData: any = {}
+        if (input.transcript) updateData.transcript = input.transcript
+        if (input.summary) updateData.summary = input.summary
+        
+        const { data: video, error } = await supabase
+          .from('videos')
+          .update(updateData)
+          .eq('id', input.id)
+          .select()
+          .single()
+        
+        if (error) throw error
+        return { success: true, video }
       })
   }),
 

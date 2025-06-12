@@ -71,13 +71,13 @@ npx tsc --init
 
 ## Phase 2: Data Layer
 
-### 6. Initialize Supabase project
+### ✅ 6. Initialize Supabase project
 
 - Go to [supabase.com](https://supabase.com)
 - Create project named `yield-hunt`
 - Get `project URL` and `anon` key from settings > API
 
-### 7. Create `videos` table in Supabase
+### ✅ 7. Create `videos` table in Supabase
 
 Use the SQL editor:
 
@@ -96,7 +96,7 @@ create table videos (
 - Enable Row-Level Security (RLS)
 - Add policy to allow insert/update for service role
 
-### 8. Connect Supabase to backend
+### ✅ 8. Connect Supabase to backend
 
 ```bash
 pnpm install @supabase/supabase-js

@@ -1,2 +1,6 @@
 .vercel
 backend/node_modules
+backend/.env
+backend/tsconfig.tsbuildinfo
+backend/dist/index.js
+backend/dist

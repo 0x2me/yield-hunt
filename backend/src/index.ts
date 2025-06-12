@@ -1,5 +1,6 @@
 import fastify from "fastify";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
+import { renderTrpcPanel } from "trpc-ui";
 import { appRouter } from "./router";
 import "dotenv/config";
 
@@ -17,6 +18,18 @@ server.register(fastifyTRPCPlugin, {
 server.get("/health", async () => {
   return { status: "ok", timestamp: new Date().toISOString() };
 });
+
+// tRPC Panel for testing (development only)
+if (process.env.NODE_ENV !== "production") {
+  server.get("/panel", async (_, reply) => {
+    const html = renderTrpcPanel(appRouter, {
+      url: "http://localhost:3001/trpc",
+    });
+
+    reply.type("text/html");
+    return html;
+  });
+}
 
 const start = async () => {
   try {
